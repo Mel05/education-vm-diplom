@@ -19,9 +19,9 @@ const UsersTable = ({ users, handleDelete }) => {
               <td key={user._id}> {user.name} </td>
               <td>
                 {user.qualities.map((qualitie) => (
-                  <td className={`badge m-1 bg-${qualitie.color}`}>
+                  <span className={`badge m-1 bg-${qualitie.color}`}>
                     {qualitie.name}
-                  </td>
+                  </span>
                 ))}
               </td>
               <td> {user.profession.name} </td>
