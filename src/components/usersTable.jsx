@@ -3,7 +3,7 @@ import React from "react"
 const UsersTable = ({ users, handleDelete }) => {
   return (
     <>
-      <table class="table">
+      <table className="table">
         <thead>
           <tr>
             <th scope="col">Имя</th>
@@ -15,11 +15,14 @@ const UsersTable = ({ users, handleDelete }) => {
         </thead>
         <tbody>
           {users.map((user) => (
-            <tr>
-              <td key={user._id}> {user.name} </td>
+            <tr key={user._id}>
+              <td> {user.name} </td>
               <td>
                 {user.qualities.map((qualitie) => (
-                  <span className={`badge m-1 bg-${qualitie.color}`}>
+                  <span
+                    key={qualitie._id}
+                    className={`badge m-1 bg-${qualitie.color}`}
+                  >
                     {qualitie.name}
                   </span>
                 ))}
