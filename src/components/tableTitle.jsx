@@ -18,14 +18,16 @@ const TableTitle = ({ users }) => {
 
   const titleSpan = () => {
     let title = ""
-
-    if (users.length >= 5 && users.length === 1) {
+    if (!users.length) {
+      title = titleZero
+    } else if (users.length === 1) {
       title = titleMany
     } else if (users.length < 5 && users.length > 1) {
       title = titleShort
-    } else if (!users.length) {
-      title = titleZero
+    } else if (users.length >= 5) {
+      title = titleMany
     }
+
     return title
   }
 

@@ -1,6 +1,7 @@
 import React from "react"
+import BookMark from "./bookMark"
 
-const UsersTable = ({ users, handleDelete }) => {
+const UsersTable = ({ users, handleDelete, handleToggleBookMark }) => {
   return (
     <>
       <table className="table">
@@ -11,6 +12,7 @@ const UsersTable = ({ users, handleDelete }) => {
             <th scope="col">Профессия</th>
             <th scope="col">Встретил, раз</th>
             <th scope="col">Оценка</th>
+            <th scope="col">Избранное</th>
           </tr>
         </thead>
         <tbody>
@@ -30,6 +32,12 @@ const UsersTable = ({ users, handleDelete }) => {
               <td> {user.profession.name} </td>
               <td> {user.completedMeetings} </td>
               <td> {user.rate} </td>
+              <td>
+                <BookMark
+                  user={user}
+                  handleToggleBookMark={handleToggleBookMark}
+                />
+              </td>
               <td>
                 <button
                   onClick={() => handleDelete(user._id)}
