@@ -1,5 +1,6 @@
 import React from "react"
 import BookMark from "./bookMark"
+import QualityUsers from "./qualityUsers"
 
 const UsersTable = ({ users, handleDelete, handleToggleBookMark }) => {
   return (
@@ -20,14 +21,7 @@ const UsersTable = ({ users, handleDelete, handleToggleBookMark }) => {
             <tr key={user._id}>
               <td> {user.name} </td>
               <td>
-                {user.qualities.map((qualitie) => (
-                  <span
-                    key={qualitie._id}
-                    className={`badge m-1 bg-${qualitie.color}`}
-                  >
-                    {qualitie.name}
-                  </span>
-                ))}
+                <QualityUsers user={user} />
               </td>
               <td> {user.profession.name} </td>
               <td> {user.completedMeetings} </td>
