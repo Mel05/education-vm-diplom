@@ -10,7 +10,6 @@ const BookMark = ({ user, handleToggleBookMark }) => {
               ? "bi bi-bookmark"
               : "bi bi-bookmark-heart-fill"
           }
-          type="checkbox"
           checked={user.checked}
           onClick={() => handleToggleBookMark(user._id)}
         ></button>
