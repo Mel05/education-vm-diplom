@@ -1,8 +1,16 @@
 import React from "react"
+import { paginate } from "../utils/paginate"
 import BookMark from "./bookMark"
 import QualityUsers from "./qualityUsers"
 
-const UsersTable = ({ users, handleDelete, handleToggleBookMark }) => {
+const TableUsers = ({
+  users,
+  handleDelete,
+  handleToggleBookMark,
+  currentPage,
+  pageSize,
+}) => {
+  const pageTableUsers = paginate(users, currentPage, pageSize)
   return (
     <>
       <table className="table">
@@ -17,7 +25,7 @@ const UsersTable = ({ users, handleDelete, handleToggleBookMark }) => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {pageTableUsers.map((user) => (
             <tr key={user._id}>
               <td> {user.name} </td>
               <td>
@@ -48,4 +56,4 @@ const UsersTable = ({ users, handleDelete, handleToggleBookMark }) => {
   )
 }
 
-export default UsersTable
+export default TableUsers
