@@ -17,7 +17,7 @@ const Users = ({ users, handleDelete, handleToggleBookMark }) => {
             {!!usersLength && (
                 <TableUsers
                     users={users}
-                    currentPage={currentPage}
+                    currentPage={pageCount === 1 ? 1 : currentPage}
                     pageSize={pageSize}
                     handleDelete={handleDelete}
                     handleToggleBookMark={handleToggleBookMark}
@@ -34,7 +34,7 @@ const Users = ({ users, handleDelete, handleToggleBookMark }) => {
     )
 }
 Users.propTypes = {
-    users: PropTypes.string.isRequired,
+    users: PropTypes.array,
     handleDelete: PropTypes.func.isRequired,
     handleToggleBookMark: PropTypes.func.isRequired
 }

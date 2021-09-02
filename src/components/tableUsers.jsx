@@ -57,7 +57,7 @@ const TableUsers = ({
     )
 }
 TableUsers.propTypes = {
-    users: PropTypes.string.isRequired,
+    users: PropTypes.array,
     handleDelete: PropTypes.func.isRequired,
     handleToggleBookMark: PropTypes.func.isRequired,
     currentPage: PropTypes.number.isRequired,

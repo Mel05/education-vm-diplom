@@ -41,7 +41,7 @@ const TableTitle = ({ users }) => {
     )
 }
 TableTitle.propTypes = {
-    users: PropTypes.string.isRequired
+    users: PropTypes.array
 }
 
 export default TableTitle

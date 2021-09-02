@@ -19,7 +19,7 @@ const BookMark = ({ user, handleToggleBookMark }) => {
     )
 }
 BookMark.propTypes = {
-    user: PropTypes.string.isRequired,
+    user: PropTypes.object,
     handleToggleBookMark: PropTypes.func.isRequired
 }
 
