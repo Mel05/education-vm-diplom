@@ -5,13 +5,13 @@ import BookMark from "./bookMark"
 import QualityUsers from "./qualityUsers"
 
 const TableUsers = ({
-    users,
+    filteredUsers,
     handleDelete,
     handleToggleBookMark,
     currentPage,
     pageSize
 }) => {
-    const pageTableUsers = paginate(users, currentPage, pageSize)
+    const pageTableUsers = paginate(filteredUsers, currentPage, pageSize)
     return (
         <>
             <table className="table">
@@ -57,7 +57,7 @@ const TableUsers = ({
     )
 }
 TableUsers.propTypes = {
-    users: PropTypes.array,
+    filteredUsers: PropTypes.array,
     handleDelete: PropTypes.func.isRequired,
     handleToggleBookMark: PropTypes.func.isRequired,
     currentPage: PropTypes.number.isRequired,

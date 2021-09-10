@@ -1,9 +1,9 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-const TableTitle = ({ users }) => {
+const TableTitle = ({ count }) => {
     const renderPhrase = () => {
-        const numberUsers = users.length
+        const numberUsers = count
         return numberUsers
     }
 
@@ -19,13 +19,13 @@ const TableTitle = ({ users }) => {
 
     const titleSpan = () => {
         let title = ""
-        if (!users.length) {
+        if (!count) {
             title = titleZero
-        } else if (users.length === 1) {
+        } else if (count === 1) {
             title = titleMany
-        } else if (users.length < 5 && users.length > 1) {
+        } else if (count < 5 && count > 1) {
             title = titleShort
-        } else if (users.length >= 5) {
+        } else if (count >= 5) {
             title = titleMany
         }
 
@@ -41,7 +41,7 @@ const TableTitle = ({ users }) => {
     )
 }
 TableTitle.propTypes = {
-    users: PropTypes.array
+    count: PropTypes.number.isRequired
 }
 
 export default TableTitle
