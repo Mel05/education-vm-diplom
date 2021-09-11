@@ -1,5 +1,5 @@
-import { professionsObject as professions } from "./professions.api"
-export const qualities = {
+import { professions } from "./professions.api"
+const qualities = {
     tedious: {
         _id: "67rdca3eeb7f6fgeed471198",
         name: "Нудила",
@@ -32,7 +32,7 @@ export const qualities = {
     }
 }
 
-export const users = [
+const users = [
     {
         _id: "67rdca3eeb7f6fgeed471815",
         name: "Джон Дориан",
@@ -130,7 +130,7 @@ export const users = [
         qualities: [qualities.uncertain, qualities.strange],
         completedMeetings: 434,
         rate: 3.5,
-        checked: false
+        checked: true
     },
     {
         _id: "67rdca3eeb7f6fgeed47181r",
@@ -139,19 +139,9 @@ export const users = [
         qualities: [qualities.handsome],
         completedMeetings: 434,
         rate: 5,
-        checked: false
+        checked: true
     }
 ]
-
-/* export function fetchAll() {
+export function fetchAll() {
     return users
-} */
-
-const fetchAll = () =>
-    new Promise((resolve) => {
-        window.setTimeout(function () {
-            resolve(users)
-        }, 2000)
-    })
-
-export { fetchAll }
+}
