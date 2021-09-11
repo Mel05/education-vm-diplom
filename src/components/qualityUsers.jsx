@@ -16,7 +16,7 @@ const QualityUsers = ({ user }) => {
     )
 }
 QualityUsers.propTypes = {
-    user: PropTypes.string.isRequired
+    user: PropTypes.object
 }
 
 export default QualityUsers

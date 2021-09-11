@@ -4,25 +4,44 @@ import _ from "lodash"
 
 const Pagination = ({ pageCount, currentPage, onPageChange }) => {
     const pages = _.range(1, pageCount + 1)
+
     return (
         <nav>
-            <ul className="pagination">
+            <ul className={"pagination"}>
+                {
+                    <button
+                        disabled={currentPage === 1 && true}
+                        className={"bi bi-arrow-left-square-fill"}
+                        onClick={() => {
+                            onPageChange(currentPage - 1)
+                        }}
+                    ></button>
+                }
                 {pages.map((page) => (
                     <li
                         className={
-                            "page-item " +
-                            (page === currentPage ? "active" : "")
+                            "page-item" +
+                            (page === currentPage ? " active" : "")
                         }
                         key={page}
                     >
                         <a
-                            className="page-link"
+                            className={"page-link"}
                             onClick={() => onPageChange(page)}
                         >
-                            {page}
+                            <span>{page}</span>
                         </a>
                     </li>
                 ))}
+                {
+                    <button
+                        disabled={pageCount <= currentPage && true}
+                        className={"bi bi-arrow-right-square-fill"}
+                        onClick={() => {
+                            onPageChange(currentPage + 1)
+                        }}
+                    ></button>
+                }
             </ul>
         </nav>
     )
