@@ -20,7 +20,7 @@ const TableUsers = ({
                         <th scope="col">Имя</th>
                         <th scope="col">Качества</th>
                         <th scope="col">Профессия</th>
-                        <th scope="col">Встретил, раз</th>
+                        <th scope="col">Встреч</th>
                         <th scope="col">Оценка</th>
                         <th scope="col">Избранное</th>
                     </tr>
