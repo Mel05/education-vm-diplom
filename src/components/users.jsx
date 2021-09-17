@@ -106,8 +106,8 @@ const Users = () => {
 }
 Users.propTypes = {
     users: PropTypes.array,
-    handleDelete: PropTypes.func.isRequired,
-    handleToggleBookMark: PropTypes.func.isRequired
+    handleDelete: PropTypes.func,
+    handleToggleBookMark: PropTypes.func
 }
 
 export default Users

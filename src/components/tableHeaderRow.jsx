@@ -13,19 +13,6 @@ const TableHeaderRow = ({ onSort, selectedSort, columns }) => {
         }
     }
 
-    const renderSortArrow = (selectedSort, currentPath) => {
-        if (selectedSort.path === currentPath) {
-            console.log("123", currentPath)
-            if (selectedSort.order === "asc") {
-                return <i className="bi bi-caret-down-fill"></i>
-            } else {
-                return <i className="bi bi-caret-up-fill"></i>
-            }
-        }
-        return null
-    }
-    console.log("123", renderSortArrow)
-
     return (
         <thead>
             <tr>
@@ -42,8 +29,14 @@ const TableHeaderRow = ({ onSort, selectedSort, columns }) => {
                     >
                         {columns[column].name}
                         <button
-                            hidden={true}
-                            className="bi bi-caret-up-fill"
+                            className={
+                                selectedSort.order === "asc"
+                                    ? "bi bi-caret-down-fill m-1"
+                                    : "bi bi-caret-up-fill m-1"
+                            }
+                            hidden={
+                                !(selectedSort.path === columns[column].path)
+                            }
                         ></button>
                     </th>
                 ))}
