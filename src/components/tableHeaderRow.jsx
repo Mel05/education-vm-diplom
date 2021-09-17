@@ -28,7 +28,7 @@ const TableHeaderRow = ({ onSort, selectedSort, columns }) => {
                         scope="col"
                     >
                         {columns[column].name}
-                        <button
+                        <i
                             className={
                                 selectedSort.order === "asc"
                                     ? "bi bi-caret-down-fill m-1"
@@ -37,7 +37,7 @@ const TableHeaderRow = ({ onSort, selectedSort, columns }) => {
                             hidden={
                                 !(selectedSort.path === columns[column].path)
                             }
-                        ></button>
+                        ></i>
                     </th>
                 ))}
             </tr>
