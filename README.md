@@ -1,1 +1,1 @@
-# Diplom
+# Fast-company
