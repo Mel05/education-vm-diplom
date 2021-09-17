@@ -3,8 +3,7 @@ import PropTypes from "prop-types"
 
 const TableTitle = ({ count }) => {
     const renderPhrase = () => {
-        const numberUsers = count
-        return numberUsers
+        return count
     }
 
     const getBadgeClasses = () => {

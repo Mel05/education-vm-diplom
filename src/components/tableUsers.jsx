@@ -1,8 +1,11 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { paginate } from "../utils/paginate"
+import _ from "lodash"
 import BookMark from "./bookMark"
 import QualityUsers from "./qualityUsers"
+import { useState } from "react/cjs/react.development"
+import Table from "./table"
 
 const TableUsers = ({
     filteredUsers,
@@ -11,49 +14,53 @@ const TableUsers = ({
     currentPage,
     pageSize
 }) => {
-    const pageTableUsers = paginate(filteredUsers, currentPage, pageSize)
+    const [sortBy, setSortBy] = useState({ path: "name", order: "asc" })
+
+    const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order])
+    const pageTableUsers = paginate(sortedUsers, currentPage, pageSize)
+
+    const columns = {
+        name: { path: "name", name: "Имя" },
+        qualities: {
+            name: "Качества",
+            component: (user) => <QualityUsers user={user} />
+        },
+        professions: { path: "profession.name", name: "Профессия" },
+        completedMeetings: { path: "completedMeetings", name: "Встреч" },
+        rate: { path: "rate", name: "Оценка" },
+        bookmark: {
+            path: "bookmark",
+            name: "Избранное",
+            component: (user) => (
+                <BookMark
+                    user={user}
+                    handleToggleBookMark={handleToggleBookMark}
+                />
+            )
+        },
+        delete: {
+            component: (user) => (
+                <button
+                    onClick={() => handleDelete(user._id)}
+                    className="btn btn-secondary btn-danger"
+                >
+                    delete
+                </button>
+            )
+        }
+    }
+
+    const onSort = (item) => {
+        setSortBy(item)
+    }
+
     return (
-        <>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Имя</th>
-                        <th scope="col">Качества</th>
-                        <th scope="col">Профессия</th>
-                        <th scope="col">Встретил, раз</th>
-                        <th scope="col">Оценка</th>
-                        <th scope="col">Избранное</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {pageTableUsers.map((user) => (
-                        <tr key={user._id}>
-                            <td> {user.name} </td>
-                            <td>
-                                <QualityUsers user={user} />
-                            </td>
-                            <td> {user.profession.name} </td>
-                            <td> {user.completedMeetings} </td>
-                            <td> {user.rate} </td>
-                            <td>
-                                <BookMark
-                                    user={user}
-                                    handleToggleBookMark={handleToggleBookMark}
-                                />
-                            </td>
-                            <td>
-                                <button
-                                    onClick={() => handleDelete(user._id)}
-                                    className="btn btn-secondary btn-danger"
-                                >
-                                    delete
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </>
+        <Table
+            onSort={onSort}
+            selectedSort={sortBy}
+            columns={columns}
+            data={pageTableUsers}
+        />
     )
 }
 TableUsers.propTypes = {

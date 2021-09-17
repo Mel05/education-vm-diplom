@@ -7,11 +7,11 @@ const BookMark = ({ user, handleToggleBookMark }) => {
             <label>
                 <button
                     className={
-                        user.checked === false
+                        user.bookmark === false
                             ? "bi bi-bookmark"
                             : "bi bi-bookmark-heart-fill"
                     }
-                    checked={user.checked}
+                    checked={user.bookmark}
                     onClick={() => handleToggleBookMark(user._id)}
                 ></button>
             </label>
@@ -19,7 +19,7 @@ const BookMark = ({ user, handleToggleBookMark }) => {
     )
 }
 BookMark.propTypes = {
-    user: PropTypes.object,
+    user: PropTypes.object.isRequired,
     handleToggleBookMark: PropTypes.func.isRequired
 }
 
