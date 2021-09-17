@@ -5,7 +5,7 @@ const BookMark = ({ user, handleToggleBookMark }) => {
     return (
         <>
             <label>
-                <button
+                <i
                     className={
                         user.bookmark === false
                             ? "bi bi-bookmark"
@@ -13,7 +13,7 @@ const BookMark = ({ user, handleToggleBookMark }) => {
                     }
                     checked={user.bookmark}
                     onClick={() => handleToggleBookMark(user._id)}
-                ></button>
+                ></i>
             </label>
         </>
     )
