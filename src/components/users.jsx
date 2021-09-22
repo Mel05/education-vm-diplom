@@ -21,6 +21,7 @@ const Users = () => {
     const handleDelete = (userId) => {
         setUsers(users.filter((user) => user._id !== userId))
     }
+
     const handleToggleBookMark = (userId) => {
         setUsers(
             users.map((user) => {
@@ -48,6 +49,21 @@ const Users = () => {
     const handlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex)
     }
+
+    /* const filteredUsers = selectedProf
+            ? users.filter((user) => user.profession.name === selectedProf.name)
+            : users
+*/
+
+    /* const filteredUsers = selectedProf
+        ? users.filter(
+              (user) =>
+                  JSON.stringify(user.professions) ===
+                  JSON.stringify(selectedProf)
+          )
+        : users
+
+    */
 
     if (users) {
         const filteredUsers = selectedProf
