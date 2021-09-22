@@ -2,10 +2,12 @@ import React from "react"
 import PropTypes from "prop-types"
 import { paginate } from "../utils/paginate"
 import _ from "lodash"
+import { Link } from "react-router-dom"
 import BookMark from "./bookMark"
 import QualityUsers from "./qualityUsers"
 import { useState } from "react/cjs/react.development"
 import Table from "./table"
+// import User from "./user"
 
 const TableUsers = ({
     filteredUsers,
@@ -20,7 +22,13 @@ const TableUsers = ({
     const pageTableUsers = paginate(sortedUsers, currentPage, pageSize)
 
     const columns = {
-        name: { path: "name", name: "Имя" },
+        name: {
+            component: (user) => (
+                <Link to={`/user/${user._id}`}>{user.name}</Link>
+            ),
+            path: "name",
+            name: "Имя"
+        },
         qualities: {
             name: "Качества",
             component: (user) => <QualityUsers user={user} />
@@ -55,12 +63,14 @@ const TableUsers = ({
     }
 
     return (
-        <Table
-            onSort={onSort}
-            selectedSort={sortBy}
-            columns={columns}
-            data={pageTableUsers}
-        />
+        <>
+            <Table
+                onSort={onSort}
+                selectedSort={sortBy}
+                columns={columns}
+                data={pageTableUsers}
+            />
+        </>
     )
 }
 TableUsers.propTypes = {
