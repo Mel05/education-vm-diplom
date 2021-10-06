@@ -6,7 +6,7 @@ import TableTitle from "./tableTitle"
 import TableUsers from "./tableUsers"
 import GroupList from "./groupList"
 
-const Users = () => {
+const UsersList = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [professions, setProfessions] = useState()
     const [selectedProf, setSelectedProf] = useState()
@@ -51,24 +51,19 @@ const Users = () => {
     }
 
     /* const filteredUsers = selectedProf
-            ? users.filter((user) => user.profession.name === selectedProf.name)
+            ? users.filter((user) => user.profession._id === selectedProf._id)
             : users
-*/
-
-    /* const filteredUsers = selectedProf
-        ? users.filter(
-              (user) =>
-                  JSON.stringify(user.professions) ===
-                  JSON.stringify(selectedProf)
-          )
-        : users
-
     */
 
     if (users) {
         const filteredUsers = selectedProf
-            ? users.filter((user) => user.profession.name === selectedProf.name)
+            ? users.filter(
+                  (user) =>
+                      JSON.stringify(user.profession) ===
+                      JSON.stringify(selectedProf)
+              )
             : users
+
         const count = filteredUsers.length
         const pageCount = Math.ceil(count / pageSize)
 
@@ -120,10 +115,10 @@ const Users = () => {
     }
     return "loading..."
 }
-Users.propTypes = {
+UsersList.propTypes = {
     users: PropTypes.array,
     handleDelete: PropTypes.func,
     handleToggleBookMark: PropTypes.func
 }
 
-export default Users
+export default UsersList

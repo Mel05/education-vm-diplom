@@ -7,7 +7,6 @@ import BookMark from "./bookMark"
 import QualityUsers from "./qualityUsers"
 import { useState } from "react/cjs/react.development"
 import Table from "./table"
-// import User from "./user"
 
 const TableUsers = ({
     filteredUsers,
@@ -24,7 +23,7 @@ const TableUsers = ({
     const columns = {
         name: {
             component: (user) => (
-                <Link to={`/user/${user._id}`}>{user.name}</Link>
+                <Link to={`/users/${user._id}`}>{user.name}</Link>
             ),
             path: "name",
             name: "Имя"
