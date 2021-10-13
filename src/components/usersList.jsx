@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 import api from "../API"
-import Pagination from "./pagination"
+import GroupList from "./groupList"
+// import SearchUsers from "./searchUsers"
 import TableTitle from "./tableTitle"
 import TableUsers from "./tableUsers"
-import GroupList from "./groupList"
+import Pagination from "./pagination"
 
 const UsersList = () => {
     const [currentPage, setCurrentPage] = useState(1)
@@ -13,6 +14,8 @@ const UsersList = () => {
     const pageSize = 8
 
     const [users, setUsers] = useState()
+
+    const [serchValue, setSerchValue] = useState("")
 
     useEffect(() => {
         api.users.fetchAll().then((data) => setUsers(data))
@@ -64,7 +67,11 @@ const UsersList = () => {
               )
             : users
 
-        const count = filteredUsers.length
+        const searcUsers = filteredUsers.filter((user) => {
+            return user.name.toLowerCase().includes(serchValue.toLowerCase())
+        })
+
+        const count = searcUsers.length
         const pageCount = Math.ceil(count / pageSize)
 
         const clearFilter = () => {
@@ -90,9 +97,20 @@ const UsersList = () => {
                 )}
                 <div className="d-flex flex-column">
                     <TableTitle count={count} />
+
+                    <div>
+                        <input
+                            className="w-100 mx-auto"
+                            type="text"
+                            onChange={(event) =>
+                                setSerchValue(event.target.value)
+                            }
+                        />
+                    </div>
+
                     {!!count && (
                         <TableUsers
-                            filteredUsers={filteredUsers}
+                            filteredUsers={searcUsers}
                             currentPage={pageCount === 1 ? 1 : currentPage}
                             pageSize={pageSize}
                             handleDelete={handleDelete}
