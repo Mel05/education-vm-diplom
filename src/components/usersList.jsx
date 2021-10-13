@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 import api from "../API"
-import Pagination from "./pagination"
+import GroupList from "./groupList"
+// import SearchUsers from "./searchUsers"
 import TableTitle from "./tableTitle"
 import TableUsers from "./tableUsers"
-import GroupList from "./groupList"
+import Pagination from "./pagination"
 
-const Users = () => {
+const UsersList = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [professions, setProfessions] = useState()
     const [selectedProf, setSelectedProf] = useState()
     const pageSize = 8
 
     const [users, setUsers] = useState()
+
+    const [serchValue, setSerchValue] = useState("")
 
     useEffect(() => {
         api.users.fetchAll().then((data) => setUsers(data))
@@ -51,25 +54,24 @@ const Users = () => {
     }
 
     /* const filteredUsers = selectedProf
-            ? users.filter((user) => user.profession.name === selectedProf.name)
+            ? users.filter((user) => user.profession._id === selectedProf._id)
             : users
-*/
-
-    /* const filteredUsers = selectedProf
-        ? users.filter(
-              (user) =>
-                  JSON.stringify(user.professions) ===
-                  JSON.stringify(selectedProf)
-          )
-        : users
-
     */
 
     if (users) {
         const filteredUsers = selectedProf
-            ? users.filter((user) => user.profession.name === selectedProf.name)
+            ? users.filter(
+                  (user) =>
+                      JSON.stringify(user.profession) ===
+                      JSON.stringify(selectedProf)
+              )
             : users
-        const count = filteredUsers.length
+
+        const searcUsers = filteredUsers.filter((user) => {
+            return user.name.toLowerCase().includes(serchValue.toLowerCase())
+        })
+
+        const count = searcUsers.length
         const pageCount = Math.ceil(count / pageSize)
 
         const clearFilter = () => {
@@ -95,9 +97,20 @@ const Users = () => {
                 )}
                 <div className="d-flex flex-column">
                     <TableTitle count={count} />
+
+                    <div>
+                        <input
+                            className="w-100 mx-auto"
+                            type="text"
+                            onChange={(event) =>
+                                setSerchValue(event.target.value)
+                            }
+                        />
+                    </div>
+
                     {!!count && (
                         <TableUsers
-                            filteredUsers={filteredUsers}
+                            filteredUsers={searcUsers}
                             currentPage={pageCount === 1 ? 1 : currentPage}
                             pageSize={pageSize}
                             handleDelete={handleDelete}
@@ -120,10 +133,10 @@ const Users = () => {
     }
     return "loading..."
 }
-Users.propTypes = {
+UsersList.propTypes = {
     users: PropTypes.array,
     handleDelete: PropTypes.func,
     handleToggleBookMark: PropTypes.func
 }
 
-export default Users
+export default UsersList

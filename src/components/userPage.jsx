@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
 import { useHistory } from "react-router"
+import PropTypes from "prop-types"
 import api from "../API"
 import QualityUsers from "./qualityUsers"
 
-const User = () => {
+const UserPage = ({ userId }) => {
     const [user, setUser] = useState()
     const history = useHistory()
-    const params = useParams()
-    const { userId } = params
 
     useEffect(() => {
         api.users.getById(userId).then((data) => setUser(data))
@@ -18,9 +16,9 @@ const User = () => {
         history.replace("/users")
     }
 
-    return (
-        <>
-            {user && (
+    if (user) {
+        return (
+            <>
                 <div className="m-2">
                     <h2> {user.name} </h2>
                     <h3> Профессия: {user.profession.name}</h3>
@@ -31,9 +29,15 @@ const User = () => {
                     <h2> Rate: {user.rate} </h2>
                     <button onClick={handleBack}> Все Пользователи </button>
                 </div>
-            )}
-        </>
-    )
+            </>
+        )
+    } else {
+        return <h1> Loading ... </h1>
+    }
 }
 
-export default User
+UserPage.propTypes = {
+    userId: PropTypes.string.isRequired
+}
+
+export default UserPage
