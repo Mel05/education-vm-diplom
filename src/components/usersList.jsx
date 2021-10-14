@@ -43,10 +43,16 @@ const UsersList = () => {
 
     useEffect(() => {
         setCurrentPage(1)
-    }, [selectedProf])
+    }, [selectedProf, serchValue])
 
     const handleProfessionSelect = (item) => {
+        if (serchValue !== "") setSerchValue("")
         setSelectedProf(item)
+    }
+
+    const handleSerchValue = (event) => {
+        setSelectedProf(undefined)
+        setSerchValue(event.target.value)
     }
 
     const handlePageChange = (pageIndex) => {
@@ -59,7 +65,13 @@ const UsersList = () => {
     */
 
     if (users) {
-        const filteredUsers = selectedProf
+        const filteredUsers = serchValue
+            ? users.filter((user) => {
+                  return user.name
+                      .toLowerCase()
+                      .includes(serchValue.toLowerCase())
+              })
+            : selectedProf
             ? users.filter(
                   (user) =>
                       JSON.stringify(user.profession) ===
@@ -67,11 +79,7 @@ const UsersList = () => {
               )
             : users
 
-        const searcUsers = filteredUsers.filter((user) => {
-            return user.name.toLowerCase().includes(serchValue.toLowerCase())
-        })
-
-        const count = searcUsers.length
+        const count = filteredUsers.length
         const pageCount = Math.ceil(count / pageSize)
 
         const clearFilter = () => {
@@ -102,15 +110,16 @@ const UsersList = () => {
                         <input
                             className="w-100 mx-auto"
                             type="text"
-                            onChange={(event) =>
-                                setSerchValue(event.target.value)
-                            }
+                            name="serchValue"
+                            placeholder="Search..."
+                            onChange={handleSerchValue}
+                            value={serchValue}
                         />
                     </div>
 
                     {!!count && (
                         <TableUsers
-                            filteredUsers={searcUsers}
+                            filteredUsers={filteredUsers}
                             currentPage={pageCount === 1 ? 1 : currentPage}
                             pageSize={pageSize}
                             handleDelete={handleDelete}
