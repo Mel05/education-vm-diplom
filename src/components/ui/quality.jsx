@@ -3,12 +3,21 @@ import PropTypes from "prop-types"
 
 const Quality = ({ id }) => {
     const { isLoading, getQualities } = useQualities()
-    const quality = getQualities(id)
 
     if (!isLoading) {
-        console.log("quality", quality)
-        console.log("quality", quality)
-        return <p> {quality} </p>
+        return (
+            <>
+                {id.map((q) => {
+                    const { name, color } = getQualities(q)
+
+                    return (
+                        <span key={name} className={`badge m-1 bg-${color}`}>
+                            {name}
+                        </span>
+                    )
+                })}
+            </>
+        )
     } else return "Loading ..."
 }
 
