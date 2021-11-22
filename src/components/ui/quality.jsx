@@ -7,6 +7,7 @@ const Quality = ({ id }) => {
 
     if (!isLoading) {
         console.log("quality", quality)
+        console.log("quality", quality)
         return <p> {quality} </p>
     } else return "Loading ..."
 }
