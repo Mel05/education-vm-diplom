@@ -4,10 +4,11 @@ import { paginate } from "../../utils/paginate"
 import _ from "lodash"
 import { Link } from "react-router-dom"
 import BookMark from "../common/bookMark"
-import QualityUsers from "./qualityUsers"
+// import QualityUsers from "./qualityUsers"
 import { useState } from "react/cjs/react.development"
 import Table from "../common/table/"
 import Profession from "./profession"
+import Quality from "./quality"
 
 const TableUsers = ({
     filteredUsers,
@@ -31,7 +32,7 @@ const TableUsers = ({
         },
         qualities: {
             name: "Качества",
-            component: (user) => <QualityUsers user={user} />
+            component: (user) => <Quality id={user.quality} />
         },
         professions: {
             name: "Профессия",
