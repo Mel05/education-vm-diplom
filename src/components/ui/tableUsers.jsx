@@ -1,12 +1,13 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { paginate } from "../utils/paginate"
+import { paginate } from "../../utils/paginate"
 import _ from "lodash"
 import { Link } from "react-router-dom"
-import BookMark from "./bookMark"
+import BookMark from "../common/bookMark"
 import QualityUsers from "./qualityUsers"
 import { useState } from "react/cjs/react.development"
-import Table from "./table"
+import Table from "../common/table/"
+import Profession from "./profession"
 
 const TableUsers = ({
     filteredUsers,
@@ -32,7 +33,10 @@ const TableUsers = ({
             name: "Качества",
             component: (user) => <QualityUsers user={user} />
         },
-        professions: { path: "profession.name", name: "Профессия" },
+        professions: {
+            name: "Профессия",
+            component: (user) => <Profession id={user.profession} />
+        },
         completedMeetings: { path: "completedMeetings", name: "Встреч" },
         rate: { path: "rate", name: "Оценка" },
         bookmark: {

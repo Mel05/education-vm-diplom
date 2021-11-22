@@ -1,40 +1,39 @@
 import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
-import api from "../API"
-import GroupList from "./groupList"
+import api from "../../../API"
+import GroupList from "../../common/groupList"
 // import SearchUsers from "./searchUsers"
-import TableTitle from "./tableTitle"
-import TableUsers from "./tableUsers"
-import Pagination from "./pagination"
+import TableTitle from "../../ui/tableTitle"
+import TableUsers from "../../ui/tableUsers"
+import Pagination from "../../common/pagination"
+import { useUser } from "../../../hooks/useUsers"
 
-const UsersList = () => {
+const UsersListPage = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [professions, setProfessions] = useState()
     const [selectedProf, setSelectedProf] = useState()
     const pageSize = 8
 
-    const [users, setUsers] = useState()
+    const { users } = useUser()
+    console.log(users)
 
     const [serchValue, setSerchValue] = useState("")
 
-    useEffect(() => {
-        api.users.fetchAll().then((data) => setUsers(data))
-    }, [])
-
     const handleDelete = (userId) => {
-        setUsers(users.filter((user) => user._id !== userId))
+        // setUsers(users.filter((user) => user._id !== userId))
+        console.log(userId)
     }
 
     const handleToggleBookMark = (userId) => {
-        setUsers(
-            users.map((user) => {
-                if (user._id === userId) {
-                    user.bookmark = !user.bookmark
-                }
+        // setUsers(
+        users.map((user) => {
+            if (user._id === userId) {
+                user.bookmark = !user.bookmark
+            }
 
-                return user
-            })
-        )
+            return user
+        })
+        // )
     }
 
     useEffect(() => {
@@ -43,10 +42,16 @@ const UsersList = () => {
 
     useEffect(() => {
         setCurrentPage(1)
-    }, [selectedProf])
+    }, [selectedProf, serchValue])
 
     const handleProfessionSelect = (item) => {
+        if (serchValue !== "") setSerchValue("")
         setSelectedProf(item)
+    }
+
+    const handleSerchValue = (event) => {
+        setSelectedProf(undefined)
+        setSerchValue(event.target.value)
     }
 
     const handlePageChange = (pageIndex) => {
@@ -59,7 +64,13 @@ const UsersList = () => {
     */
 
     if (users) {
-        const filteredUsers = selectedProf
+        const filteredUsers = serchValue
+            ? users.filter((user) => {
+                  return user.name
+                      .toLowerCase()
+                      .includes(serchValue.toLowerCase())
+              })
+            : selectedProf
             ? users.filter(
                   (user) =>
                       JSON.stringify(user.profession) ===
@@ -67,11 +78,7 @@ const UsersList = () => {
               )
             : users
 
-        const searcUsers = filteredUsers.filter((user) => {
-            return user.name.toLowerCase().includes(serchValue.toLowerCase())
-        })
-
-        const count = searcUsers.length
+        const count = filteredUsers.length
         const pageCount = Math.ceil(count / pageSize)
 
         const clearFilter = () => {
@@ -102,15 +109,16 @@ const UsersList = () => {
                         <input
                             className="w-100 mx-auto"
                             type="text"
-                            onChange={(event) =>
-                                setSerchValue(event.target.value)
-                            }
+                            name="serchValue"
+                            placeholder="Search..."
+                            onChange={handleSerchValue}
+                            value={serchValue}
                         />
                     </div>
 
                     {!!count && (
                         <TableUsers
-                            filteredUsers={searcUsers}
+                            filteredUsers={filteredUsers}
                             currentPage={pageCount === 1 ? 1 : currentPage}
                             pageSize={pageSize}
                             handleDelete={handleDelete}
@@ -133,10 +141,10 @@ const UsersList = () => {
     }
     return "loading..."
 }
-UsersList.propTypes = {
+UsersListPage.propTypes = {
     users: PropTypes.array,
     handleDelete: PropTypes.func,
     handleToggleBookMark: PropTypes.func
 }
 
-export default UsersList
+export default UsersListPage
