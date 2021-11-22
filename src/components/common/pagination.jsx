@@ -11,7 +11,7 @@ const Pagination = ({ pageCount, currentPage, onPageChange }) => {
                 {
                     <button
                         disabled={currentPage === 1 && true}
-                        className={"bi bi-arrow-left-square-fill"}
+                        className={"bi bi-arrow-left-square-fill btn btn-light"}
                         onClick={() => {
                             onPageChange(currentPage - 1)
                         }}
@@ -36,7 +36,9 @@ const Pagination = ({ pageCount, currentPage, onPageChange }) => {
                 {
                     <button
                         disabled={pageCount <= currentPage && true}
-                        className={"bi bi-arrow-right-square-fill"}
+                        className={
+                            "bi bi-arrow-right-square-fill btn btn-light"
+                        }
                         onClick={() => {
                             onPageChange(currentPage + 1)
                         }}

@@ -1,40 +1,39 @@
 import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
-import api from "../API"
-import GroupList from "./groupList"
+import api from "../../../API"
+import GroupList from "../../common/groupList"
 // import SearchUsers from "./searchUsers"
-import TableTitle from "./tableTitle"
-import TableUsers from "./tableUsers"
-import Pagination from "./pagination"
+import TableTitle from "../../ui/tableTitle"
+import TableUsers from "../../ui/tableUsers"
+import Pagination from "../../common/pagination"
+import { useUser } from "../../../hooks/useUsers"
 
-const UsersList = () => {
+const UsersListPage = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [professions, setProfessions] = useState()
     const [selectedProf, setSelectedProf] = useState()
     const pageSize = 8
 
-    const [users, setUsers] = useState()
+    const { users } = useUser()
+    console.log(users)
 
     const [serchValue, setSerchValue] = useState("")
 
-    useEffect(() => {
-        api.users.fetchAll().then((data) => setUsers(data))
-    }, [])
-
     const handleDelete = (userId) => {
-        setUsers(users.filter((user) => user._id !== userId))
+        // setUsers(users.filter((user) => user._id !== userId))
+        console.log(userId)
     }
 
     const handleToggleBookMark = (userId) => {
-        setUsers(
-            users.map((user) => {
-                if (user._id === userId) {
-                    user.bookmark = !user.bookmark
-                }
+        // setUsers(
+        users.map((user) => {
+            if (user._id === userId) {
+                user.bookmark = !user.bookmark
+            }
 
-                return user
-            })
-        )
+            return user
+        })
+        // )
     }
 
     useEffect(() => {
@@ -142,10 +141,10 @@ const UsersList = () => {
     }
     return "loading..."
 }
-UsersList.propTypes = {
+UsersListPage.propTypes = {
     users: PropTypes.array,
     handleDelete: PropTypes.func,
     handleToggleBookMark: PropTypes.func
 }
 
-export default UsersList
+export default UsersListPage
