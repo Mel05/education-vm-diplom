@@ -6,6 +6,7 @@ const Profession = ({ id }) => {
     const prof = getProfession(id)
 
     if (!isLoading) {
+        console.log("prof", prof)
         return <p> {prof.name} </p>
     } else return "Loading ..."
 }
