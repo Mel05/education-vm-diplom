@@ -32,7 +32,7 @@ const TableUsers = ({
         },
         qualities: {
             name: "Качества",
-            component: (user) => <Quality id={user.quality} />
+            component: (user) => <Quality id={user.qualities} />
         },
         professions: {
             name: "Профессия",

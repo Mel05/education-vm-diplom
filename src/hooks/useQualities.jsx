@@ -27,7 +27,7 @@ export const QualitiesProvider = ({ children }) => {
     }, [error])
 
     function getQualities(id) {
-        return qualities.find((p) => p._id === id)
+        return qualities.find((q) => q._id === id)
     }
 
     async function getQualitiesList() {
