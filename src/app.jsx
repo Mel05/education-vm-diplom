@@ -12,17 +12,19 @@ function App() {
     return (
         <div className="m-1">
             <NavBar />
-            <Switch>
+            <QualitiesProvider>
                 <ProfessionProvider>
-                    <QualitiesProvider>
+                    <Switch>
                         <Route path="/users/:userId?" component={Users} />
-                    </QualitiesProvider>
-                    <Route path="/login/:type?" component={Login} />
+
+                        <Route path="/login/:type?" component={Login} />
+                        <Route path="/users" component={Users} />
+                        <Route path="/" exact component={Main} />
+                        <Redirect to="/" />
+                    </Switch>
                 </ProfessionProvider>
-                <Route path="/users" component={Users} />
-                <Route path="/" exact component={Main} />
-                <Redirect to="/" />
-            </Switch>
+            </QualitiesProvider>
+
             <ToastContainer />
         </div>
     )
