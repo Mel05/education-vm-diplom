@@ -8,10 +8,10 @@ const Quality = ({ id }) => {
         return (
             <>
                 {id.map((q) => {
-                    const { name, color } = getQualities(q)
+                    const { _id, name, color } = getQualities(q)
 
                     return (
-                        <span key={name} className={`badge m-1 bg-${color}`}>
+                        <span key={_id} className={`badge m-1 bg-${color}`}>
                             {name}
                         </span>
                     )
