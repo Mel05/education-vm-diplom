@@ -4,6 +4,7 @@ import PropTypes from "prop-types"
 const QualityUsers = ({ user }) => {
     return (
         <>
+            piu piu piu
             {user.qualities.map((qualitie) => (
                 <span
                     key={qualitie._id}

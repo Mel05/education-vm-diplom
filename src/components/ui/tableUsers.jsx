@@ -8,11 +8,10 @@ import BookMark from "../common/bookMark"
 import { useState } from "react/cjs/react.development"
 import Table from "../common/table/"
 import Profession from "./profession"
-import Quality from "./quality"
+import Quality from "./qualities"
 
 const TableUsers = ({
     filteredUsers,
-    handleDelete,
     handleToggleBookMark,
     currentPage,
     pageSize
@@ -32,7 +31,7 @@ const TableUsers = ({
         },
         qualities: {
             name: "Качества",
-            component: (user) => <Quality id={user.qualities} />
+            component: (user) => <Quality qualities={user.qualities} />
         },
         professions: {
             name: "Профессия",
@@ -48,16 +47,6 @@ const TableUsers = ({
                     user={user}
                     handleToggleBookMark={handleToggleBookMark}
                 />
-            )
-        },
-        delete: {
-            component: (user) => (
-                <button
-                    onClick={() => handleDelete(user._id)}
-                    className="btn btn-secondary btn-danger"
-                >
-                    delete
-                </button>
             )
         }
     }
@@ -79,7 +68,6 @@ const TableUsers = ({
 }
 TableUsers.propTypes = {
     filteredUsers: PropTypes.array,
-    handleDelete: PropTypes.func.isRequired,
     handleToggleBookMark: PropTypes.func.isRequired,
     currentPage: PropTypes.number.isRequired,
     pageSize: PropTypes.number.isRequired
