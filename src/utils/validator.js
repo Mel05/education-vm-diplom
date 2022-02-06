@@ -1,11 +1,14 @@
 export function validator(data, config) {
     const errors = {}
+
     function validate(validateMethod, data, config) {
         let statusValidate
         switch (validateMethod) {
             case "isRequired": {
                 if (typeof data === "boolean") {
                     statusValidate = !data
+                } else if (Array.isArray(data)) {
+                    statusValidate = data.length === 0
                 } else {
                     statusValidate = data.trim() === ""
                 }
