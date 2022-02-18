@@ -63,6 +63,15 @@ const AuthProvider = ({ children }) => {
         return Math.floor(Math.random() * (max - min + 1) + min)
     }
 
+    async function updateUserData(data) {
+        try {
+            const { content } = await userService.update(data)
+            setUser(content)
+        } catch (error) {
+            errorCatcher(error)
+        }
+    }
+
     async function signUp({ email, password, ...rest }) {
         const url = "accounts:signUp"
 
@@ -140,7 +149,9 @@ const AuthProvider = ({ children }) => {
     }, [error])
 
     return (
-        <AuthContext.Provider value={{ signUp, currentUser, signIn, logOut }}>
+        <AuthContext.Provider
+            value={{ signUp, currentUser, signIn, logOut, updateUserData }}
+        >
             {!isLoading ? children : "Loading..."}
         </AuthContext.Provider>
     )

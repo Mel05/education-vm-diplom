@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useParams, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import TextField from "../../common/form/textField"
 import { validator } from "../../../utils/validator"
 import RadioField from "../../common/form/radioField"
@@ -11,7 +11,6 @@ import { useQualities } from "../../../hooks/useQualities"
 import { useProfessions } from "../../../hooks/useProfession"
 
 const UserEditPage = () => {
-    const { userId } = useParams()
     const history = useHistory()
     const { currentUser, updateUserData } = useAuth()
     const { professions, isLoading: professionsLoading } = useProfessions()
@@ -31,11 +30,24 @@ const UserEditPage = () => {
     }))
 
     const getQualitiesListByIds = (array) => {
+        const qualitiesArray = []
+        for (const qualId of array) {
+            for (const quality of qualities) {
+                if (quality._id === qualId) {
+                    qualitiesArray.push(quality)
+                    break
+                }
+            }
+        }
+        return qualitiesArray
+    }
+
+    /* const getQualitiesListByIds = (array) => {
         array = array.map((item) => item.value)
         return Object.values(qualities).filter((qualitie) => {
             return array.includes(qualitie._id)
         })
-    }
+    } */
 
     const transformData = (data) => {
         return getQualitiesListByIds(data).map((item) => ({
@@ -104,7 +116,7 @@ const UserEditPage = () => {
             ...userData,
             qualities: userData.qualities.map((q) => q.value)
         })
-        history.push(`/users/${userId}`)
+        history.push(`/users/${currentUser._id}`)
     }
 
     return (
